@@ -1,3 +1,6 @@
+#  Write a program to accept an integer amount from user and tell minimum
+# number of notes needed for representing that amount.
+
 mount = int(input("Enter the amount: "))
 
 # List of available notes
@@ -15,4 +18,5 @@ for note in notes:
 # Output result
 print("Minimum number of notes required:")
 for note, count in note_count.items():
+
     print(f"{note} : {count}")
