@@ -1,0 +1,186 @@
+update emp set dateOfJoining = '15-jul-2012' 
+where empid=1
+
+select name from student 
+where age > 22
+
+select * from emp 
+where salary between 40000 and 80000
+
+select concate(first_name , middle_name ,  last_name) from emp;
+
+select name from emp
+where name like "s%";
+
+
+select * from emp
+where first_name like "____%A" 
+
+select * from emp
+where first_name not in ("Anushka","Somnath")
+
+select cur_date() from;
+
+select To_CHAR(LAST_DAY(ADD_MONTHS(SYSDATE,-1)),"DAY)FROM DUAL
+ 
+
+select replace(first_name,"A","@") from emp
+
+select domain from emp 
+where 
+
+update emp set first_name =ltrim(rtrim(first_name));
+
+select * from emp
+where year(joindate) = "2020";
+
+select * from emp
+where empid % 2 == 0;
+
+
+
+
+create table employee as(select * from emp) // here table as well as data also gets copied
+
+create table employee1 as(select * from emp where 0=1);
+//in this only table structure gets copied not data
+
+
+select salary from  
+(select distinct salary from emp order by salary desc )
+limit 3 ;
+
+
+
+select * from emp 
+where empid=(select min(empid) from emp);
+
+select * from emp
+where empid=(select max(empid) from emp);
+
+select count(*) from emp // also consider null values data 
+select count(manager) from emp // does not consider null values data 
+
+select dept,count(*) from emp
+group by department 
+order by count(*) ;
+
+
+select dept , count(*) from emp 
+group by dept 
+having count(*) < 4 ;
+
+select dept , max(salary) from emp
+group by dept;
+
+
+select dept,max(salary)from emp e
+inner join dept d 
+on d.dept_no = e.dept_no
+group by dept;
+
+
+
+select * from emp 
+where Rownum <= (select count(*) from emp)/2 ;
+
+select * from emp
+where comp_id is null;
+
+select * from emp e 
+inner join computer c 
+on e.comp_id = e.comp_id;
+
+select e.* , c.name  from emp e
+inner join computer c
+on e.comp_id = c.comp_id
+
+select c.* , e.name from computer c
+left join emp e
+on c.comp_id = e.comp_id
+
+
+delete e2 from emp e1
+join emp e2
+on e1.name = e2.name and e1.salary = e2.salary and e1.eid > e2.eid ; 
+
+
+highest salary
+
+select salary fro emp 
+order by desc 
+limit 1 offset 2
+
+select salary from emp
+
+select * from emp
+where (emp_id in (select manager_id from emp)
+
+
+
+select name from emp
+where name like "A%";
+
+select current_Date;
+select current_Date()
+select Date(now())
+
+
+
+Q2]  Write an SQL query to fetch “FIRST_NAME” from Worker table in upper case.
+
+select upper("First_NAME") FROM WORKER;
+
+Q-3. Write an SQL query to fetch unique values of DEPARTMENT from Worker table.
+
+SELECT DISTICT DEPARTMENT FROM WORKER;
+
+SELECT DEPARTMENT , COUNT(*) FROM WORKER 
+GROUP BY DEPARTMENT 
+HAVING COUNT(*) <= 1;
+
+
+Q-4. Write an SQL query to print the first three characters of  FIRST_NAME from Worker table.
+
+SELECT SUBSTRING(FIRST_NAME ,1,3) FROM WORKER;
+
+
+Q-5. Write an SQL query to find the position of the alphabet (‘b’) in the first name column ‘Amitabh’ from Worker table.
+
+SELECT INSTR(FIRST_NAME , "b") FROM WORKER 
+WHERE FIRST_NAME = "Amitabh"
+
+
+Q-6. Write an SQL query to print the FIRST_NAME from Worker table after removing white spaces from the right side.
+
+SELECT RTRIM(FIRST_NAME) FROM WORKER 
+
+
+-- Q-7. Write an SQL query to print the DEPARTMENT from Worker table after removing white spaces from the left side.
+
+SELECT LTRIM(DEPARTMENT) FROM WORKER ; 
+
+ Q-8. Write an SQL query that fetches the unique values of DEPARTMENT from Worker table and prints its length.
+select distinct department, LENGTH(department) from worker;
+
+Q-9. Write an SQL query to print the FIRST_NAME from Worker table after replacing ‘a’ with ‘A’.
+
+SELECT REPLACE(FIRST_NAME , "a" , "A") from worker ;
+
+- Q-10. Write an SQL query to print the FIRST_NAME and LAST_NAME from Worker table into a single column COMPLETE_NAME.
+-- A space char should separate them.
+
+select concate(first_name ," ", last_name) as complete_name from worker ;
+
+ Q-11. Write an SQL query to print all Worker details from the Worker table order by FIRST_NAME Ascending.
+
+select * from worker 
+order by acs
+
+
+-- Q-39. Write an SQL query to fetch the first 50% records from a table.
+select worker_id from wroker 
+where worker_id <= (select count(worker_id)/2  from worker);
+ 
+
+

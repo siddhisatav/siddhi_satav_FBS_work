@@ -1,0 +1,155 @@
+1) List all the books that are written by Author Loni and has price
+
+less then 600.
+
+mysql> select Book_Name from bookk
+    -> where author = "Loni" and cost < 600;
+
+2) List the Issue details for the books that are not returned yet.
+mysql> select * from issue
+    -> where return_date is NULL ;
+
+3) Update all the blank return_date with 31-Dec-06 excluding 7005
+
+and 7006.
+mysql> update issue set return_date = str_to_date("31-12-06" , "%d-%m-%y")
+    -> where return_date is NULL 
+       and lib_issue_id not in (7005,7006);
+
+ mysql> select Date_Format(return_date , "%d-%b-%y") as return_date_formatted
+    -> from issue;
+
+
+4) List all the Issue details that have books issued for more then 30
+
+days.
+
+
+mysql> select * from issue
+    -> where datediff(return_date , issue_date) > 30;
+
+5) List all the books that have price in range of 500 to 750 and has
+
+category as Database.
+
+mysql> select book_name from bookk
+    -> where cost between 500 and 750
+    -> and category = "database";
+
+
+6) List all the books that belong to any one of the following
+categories Science, Database, Fiction, Management.
+
+mysql> select * from bookk
+    -> where category in ("Science", "Database", "Fiction", "Management");
+
+7) List all the members in the descending order of Penalty due on
+
+them.
+
+mysql> select member_id ,member_name, penalty_amount from member
+    -> order by  penalty_amount desc;
+
+8) Modify the price of book with id 103 to Rs 300 and category to
+
+RDBMS.
+
+mysql> update bookk set cost = 300 ,  category = "RDBMS"
+    -> where book_no = 103;
+
+9) List all the books in ascending order of category and descending
+
+order of price.
+mysql> select * from bookk
+    -> order by category asc , cost desc;
+
+10) List all the books that contain word SQL in the name of the book.
+mysql> select * from bookk
+    -> where book_name like "%sql%" ;
+
+11) List the Lib_Issue_Id, Issue_Date, Return_Date and No of days
+
+Book was issued.
+
+ mysql> select lib_issue_id ,issue_date,return_date , datediff(return_date , issue_date) as           no_of_days_book_was_issued 
+from issue ;
+
+12) Find the details of the member of the Library in the order of their
+
+joining the library.
+mysql> select * from member
+    -> order by Acc_open_date desc ;
+
+13) Display the count of total no of books issued to Member 101.
+mysql> select count(*) from issue
+    -> where member_id = 101;
+
+14) Display the total penalty due for all the members.
+
+mysql> select sum(penalty_Amount) from member ;
+
+
+15) Display the total no of members
+mysql> select count(*) from member;
+
+16) Display the total no of books issued
+mysql> select count(*) from issue;
+
+17) Display the average membership fees paid by all the members
+mysql> select avg(Fees_paid) from member;
+
+18) List the various categories and count of books in each category.
+mysql> select category , count(*) from bookk
+    -> group by category ;
+
+19) List the book_No and the number of times the book is issued in the descending order of count.
+
+mysql> SELECT book_no, COUNT(*) AS times_issued
+    -> FROM issue
+    -> GROUP BY book_no
+    -> ORDER BY times_issued DESC;
+
+20) Find the maximum, minimum, total and average penalty amount in
+the member table.
+mysql> select max(penalty_Amount) , min(penalty_Amount),avg(penalty_Amount),sum(penalty_Amount) from member;
+
+21) Display the member id and the no of books for each member that
+has issued more then 2 books.
+
+SELECT member_id, COUNT(*) AS books_issued
+FROM issue_details
+GROUP BY member_id
+HAVING COUNT(*) > 2;
+
+
+22) Display the member id, book no and no of times the same book is
+issued by the member in the descending order of count.
+mysql> select member_id , book_no , count(*)
+    -> from issue
+    -> group by member_id , book_no
+    -> order by count(*) desc;
+
+23) Display the month and no of books issued each month in the
+descending order of count.
+mysql> SELECT DATE_FORMAT(issue_date, '%M-%Y') AS month, COUNT(*) AS books_issued
+    -> FROM issue
+    -> GROUP BY DATE_FORMAT(issue_date, '%M-%Y')
+    -> ORDER BY books_issued DESC;
+
+24) List the book_no of all the books that are not issued to any
+
+member so far.
+mysql> SELECT b.book_name
+    -> FROM bookk b
+    -> LEFT JOIN issue e
+    -> ON b.book_no = e.book_no
+    -> WHERE e.book_no IS NULL;
+
+
+25) List all the member id that exist in member table and has also at
+least one book issued by them.
+
+mysql> select member.member_id  from member
+    -> left join issue
+    -> on member.member_id = issue.member_id
+    -> where issue.lib_issue_id is not null ;

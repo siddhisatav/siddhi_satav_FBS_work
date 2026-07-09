@@ -1,0 +1,12 @@
+Q1) get the avg salary from each department but only include dept 1,3and 4
+
+select dept_id ,  avg(salary) from emp e
+where dept = 1 or dept = 3 or dept = 4 
+group by dept_id ;
+
+2) write a query to print a details of emp who are working at pune location 
+
+select * from emp 
+inner join dept d 
+on d.dept_id =e.dept_id
+where dept_loc ="pune";piku8jY&HN/''l

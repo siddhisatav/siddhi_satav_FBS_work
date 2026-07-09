@@ -1,0 +1,58 @@
+1. Write a SQL statement to insert a record as follows:
+Employees :
+
+INSERT INTO employees
+(employee_id, first_name, last_name, email, phone_number, hire_date,
+ job_id, salary, commission, manager_id, department_id)
+VALUES
+(100, 'Steven', 'King', 'SKING', '515.123.4567', '1987-06-17', 'AD_PRES', 24000.00, 0.00, 200, 10),
+(101, 'Neena', 'Kochhar', 'NKOCHHAR', '515.123.4568', '1987-06-18', 'AD_VP', 17000.00, 0.00, 200, 10),
+(102, 'Lex', 'De Haan', 'LDEHAAN', '515.123.4569', '1987-06-19', 'AD_VP', 17000.00, 0.00, 200, 10),
+(103, 'Alexander', 'Hunold', 'AHUNOLD', '590.423.4567', '1987-06-20', 'IT_PROG', 9000.00, 0.00, 103, 60),
+(104, 'Bruce', 'Ernst', 'BERNST', '590.423.4568', '1987-06-21', 'IT_PROG', 6000.00, 0.00, 103, 60),
+(105, 'David', 'Austin', 'DAUSTIN', '590.423.4569', '1987-06-22', 'IT_PROG', 4800.00, 0.00, 103, 60),
+(106, 'Valli', 'Pataballa', 'VPATABAL', '590.423.4560', '1987-06-23', 'IT_PROG', 4800.00, 0.00, 103, 60),
+(107, 'Diana', 'Lorentz', 'DLORENTZ', '590.423.5567', '1987-06-24', 'IT_PROG', 4200.00, 0.00, 114, 30),
+(108, 'Nancy', 'Greenberg', 'NGREENBE', '515.124.4569', '1987-06-25', 'SA_MAN', 12000.00, 0.00, 145, 80),
+(109, 'Daniel', 'Faviet', 'DFAVIET', '515.124.4169', '1987-06-26', 'SA_MAN', 9000.00, 0.00, 145, 80);
+
+
+Department :
+
+INSERT INTO Departments (Department_ID, Department_Name, Manager_ID, Location_ID)
+VALUES 
+(1001, 'Sales', 500001, 2001),
+(1002, 'Marketing', 500002, 2002),
+(1003, 'HR', 500003, NULL);
+
+
+
+3. Write a SQL statement to insert one row in jobs table to ensure that no duplicate
+value will be entered in the job_id column.
+
+
+insert ignore into jobs(job_id, job_title, min_salary, max_salary)
+VALUES ('J101', 'Software Developer', 40000, 80000);
+
+4. Write SQL statement to increment salary of each emp by 10%.
+UPDATE Employees
+SET salary = salary * 1.10;
+
+5. Write a SQL statement to change the email column of employees table with 'not
+available' for those employees whose department_id is 80 and gets a
+commission is less than .20%
+
+update employees set email = "not available"
+where department_id = 80 and commission < 0.2 ;
+
+
+6. Write a SQL statement to change the email column of employees table with 'not
+available' for those employees who belongs to the 'Purchasing' department.
+
+update employees e set e.email - "not available"
+where e.department_id  = (select  d.department_id from department d where d.department_name = "purchasing");
+
+7. Write a SQL statement to change the email and commission_pct column of
+employees table with 'not available' and 0.10 for all employees.
+
+update employees set email = "not available " , commission_pct = 0.10;

@@ -1,0 +1,51 @@
+create table patient(p_id int primary key ,Name varchar(30) ,phone varchar(10) unique notnull, gender varchar(5) check (gender in ("male" , "female" , "other" ) , address varchar(50) , date_of_birth date);
+
+create table medical_history(m_id int primary key , p_id int , Name varchar(100) , previous_treatment varchar(100) , medication varchar(100) , allergies varchar(100) , foreign key p_id reference patient (p_id));
+
+
+create table Docter(D_id int primary key , Name varchar(20) , phone varchar (10) , address varchar(50) , degree varchar(50) , Fees float , expirence int );
+
+
+create table insurance(insurence_id int primary key , plan_type varchar(20) , insurance_company varchar(50) , coverage_start_Date date , coverage_end_date date )
+
+
+create table encounter_records(en_id int primary key , Doc_id int ,p_id int , insurence_id int ,
+                                 Appointment_date date notnull ,
+                                 Discharge VARCHAR(10) CHECK (Discharge IN ('Yes','No')),
+                                 Admission_date date notnull,
+                                 foreign key (Doc_id)
+                                 reference Docter(Doc_id) ,
+                                 foreign key (p_id)
+                                 reference patient(p_id) ,
+                                 foreign key (insurence_id)
+                                 reference insurence(insurence_id));
+
+
+create table procedure(procedure_id int primary key , 
+                       procedure_name varchar(50) , 
+                       charges float , 
+                       description varchar(100) ,
+                       Estimate_time time );
+
+                        
+
+create table procedure_encounter(pro_enid int primary key , procedure_id int,en_id int ,pro_date date , Result varchar check (result in ("pass" , " fail" ) ) , precustions varchar(50)   ,
+foreign key procedure_id reference procedure(procedure_id) );
+
+create table Diagnostic_test(test_id int primary key , test_name varchar(50) ,test_type varchar(50) rate float , Estimate_time time , test_date date );
+
+create table encounter_test_result(En_test_id int primary key ,en_id int ,test_id int , test_date date , test_result varchar(50) check (test_result in ("positive" , "negative" ) ,
+foreign key (en_id) reference encounter_records(en_id) , foreign key (test_id) reference Diagnostic_test(test_id)); 
+ 
+
+
+
+create table medicine (Med_id int primary key , name varchar(50) , price float , expiry_date date ) ;
+
+create table prescription(prescription_id int primary key , en_id int , duration varchar(50) ,
+foreign key (en_id) 
+reference encounter_records(en_id));
+
+create table prescription_medicine(Med_id int  , prescription_id int  , dosage int , frequency int , quantity int , primary key ( prescription_id , Med_id ) ,
+foreign key (prescription_id) reference prescription(prescription_id),  FOREIGN KEY (Med_id) REFERENCES Medicine(Med_id));
+
